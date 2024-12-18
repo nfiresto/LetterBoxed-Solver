@@ -1,6 +1,8 @@
 import json
 
-
+# This function takes in two adjacent letters in a word and the box given in the day's puzzle
+# The function then checks if the adjacent letters are not on the same side in the box.
+# It returns True or False
 def SideCheck(letter1, letter2, box):
     Top = box['Top']
     Bottom = box['Bottom']
@@ -45,7 +47,9 @@ def SideCheck(letter1, letter2, box):
     else:
         return False
 
-
+# This function takes in a word and the day's box
+# This function checks if a word can be used in the box
+# It outputs True or False
 def WordCheck(word, box):
     i = 1
     while i < len(word):
@@ -58,7 +62,9 @@ def WordCheck(word, box):
                 return False
     return True
 
-
+# This function takes in a dictionary of words and the day's box.
+# This function loops through words in a dictionary and sees if they work in the box or not. 
+# It outputs True or False
 def GetWords(dict, box):
     words = []
     for i in dict:
@@ -71,7 +77,9 @@ def GetWords(dict, box):
                         words.append(k)
     return words
 
-
+# This function takes in a list of words and the day's box.
+# This function generates pairs of words
+# It outputs a list of word pairs
 def InARow(wordlist, box):
     pairs = []
     for word1 in wordlist:
@@ -82,7 +90,9 @@ def InARow(wordlist, box):
                 pairs.append([word2, word1])
     return pairs
 
-
+# This function takes in a list of word pairs and the day's box.
+# this function checks if the word pairs use all of the letters in the puzzle and solve it.
+# it outputs a list of word pairs that solve the puzzle
 def AllLetters(pairs, box):
     all = []
     for set in box:
@@ -102,7 +112,8 @@ def AllLetters(pairs, box):
             final.append(pair)
     return final
 
-
+# This function has the user input the day's puzzle into the terminal
+# It returns the box of the day so other functions can parse it.
 def BoxMaker():
     top = input('Top Row Letters: ')
     Top = []
@@ -126,7 +137,7 @@ def BoxMaker():
         return
     return Box
 
-
+# this function takes in a list of word pairs and outputs the one with the most total letters
 def BestPair(pairs):
     if len(pairs) == 1:
         pair = pairs[0]
@@ -145,7 +156,7 @@ def BestPair(pairs):
         else:
             return bestsofar
 
-
+# This function takes in the best pair and prints it
 def PrintBest(pair):
     word1 = pair[0]
     word2 = pair[1]
@@ -153,7 +164,8 @@ def PrintBest(pair):
     print('The Total Number of Letters is', bestletters)
     print('The Best Pair is', pair)
 
-
+# This function generates a list of words that can be used in the puzzle
+# This is a way to check if the words generated are indeed 'real words' according to the internal dictionary the site uses. 
 def WordsLeft(pairs):
     newords = []
     for pair in pairs:
@@ -162,7 +174,7 @@ def WordsLeft(pairs):
                 newords.append(word)
     return newords
 
-
+# This function checks a list of words and sees if they are in the 'nytdict.json' file in this repository. 
 def CheckNYTDict(words):
     newords = words[:]
     import json
@@ -185,6 +197,9 @@ def CheckNYTDict(words):
     print("Those words are", newords)
     '''
     return newords
+
+## This if the function that ties all of the above functions together to solve the puzzle
+## It has no inputs and the output is printing a solution to the puzzle
 
 def SolveLetterBoxed():
     box = BoxMaker()
